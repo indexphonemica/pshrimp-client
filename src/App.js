@@ -12,7 +12,12 @@ function encode(thing) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', searchResults: [], detailResults: {}};
+    this.state = {
+      value: '', 
+      searchResults: [], 
+      detailResults: {},
+      tabIndex: 0
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -39,7 +44,7 @@ class App extends Component {
 
     fetch(queryURL, {
       method: "GET"
-    }).then(res => res.json()).then(res => this.setState({detailResults: res}));
+    }).then(res => res.json()).then(res => this.setState({detailResults: res, tabIndex: 1}));
   }
 
   render () {
@@ -59,7 +64,7 @@ class App extends Component {
             </div>
           </section>
           <section id="tabnav" className="col-sm">
-            <Tabs>
+            <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Help</Tab>
                 <Tab>Detail</Tab>
@@ -138,7 +143,14 @@ function PhonemeMatrix(props) {
 }
 
 function PhonemeArray(props) {
-  return (<div>todo</div>)
+  const size = props.inv.size;
+  if (size === 0) return (<div></div>);
+  const contents = props.inv.contents;
+
+  return (<div>
+    <h4 className='language-segments'>{ props.name } ({ size })</h4>
+    <span>{ contents.join(' ') }</span>
+  </div>)
 }
 
 export default App;
