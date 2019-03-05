@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import './App.css';
 const API_URL = 'http://localhost:1337/query/';
 
@@ -7,14 +10,6 @@ function encode(thing) {
 }
 
 class App extends Component {
-  render() {
-    return (
-      <SearchForm />
-    );
-  }
-}
-
-class SearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {value: '', searchResults: []};
@@ -44,18 +39,36 @@ class SearchForm extends Component {
 
   render () {
     return (
-      <section id="search">
-        <div id="input-wrapper">
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-            <input type="submit" value="submit" />
-          </form>
+      <main className="container">
+        <div className="row">
+          <section id="search" className="col-sm">
+            <form onSubmit={this.handleSubmit}>
+              <div id="input-wrapper">
+                <input id="in" type="text" value={this.state.value} onChange={this.handleChange} />
+              </div>
+              <input id="submit" type="submit" value="Search" />
+            </form>
+            
+            <div id="res">
+              <SearchResults value={this.state.searchResults} />
+            </div>
+          </section>
+          <section id="tabnav" className="col-sm">
+            <Tabs>
+              <TabList>
+                <Tab>Help</Tab>
+                <Tab>Detail</Tab>
+              </TabList>
+              <TabPanel>
+                TODO: add Psmith help text
+              </TabPanel>
+              <TabPanel>
+                No detail yet
+              </TabPanel>
+            </Tabs>
+          </section>
         </div>
-        
-        <div id="res">
-          <SearchResults value={this.state.searchResults} />
-        </div>
-      </section>
+      </main>
     );
   }
 }
@@ -83,7 +96,7 @@ function SearchResult(props) {
       </td>
       <td>
         <a href={"http://ethnologue.com/language/" + props.language.language_code}>
-          {props.language.language_code}
+          ({props.language.language_code})
         </a>
       </td>
       <td>
