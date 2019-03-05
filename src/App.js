@@ -15,7 +15,7 @@ class App extends Component {
     this.state = {
       value: '', 
       searchResults: [], 
-      detailResults: {},
+      detailResults: false,
       tabIndex: 0
     };
 
@@ -31,8 +31,11 @@ class App extends Component {
   handleSearch(event) {
     event.preventDefault();
 
-    const queryURL = API_URL + 'query/' + encode(this.state.value);
+    this.search(this.state.value);
+  }
 
+  search(str) {
+    const queryURL = API_URL + 'query/' + encode(str);
     fetch(queryURL, {
       method: "GET"
     }).then(res => res.json()).then(res => this.setState({searchResults: res}));
@@ -73,7 +76,7 @@ class App extends Component {
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
                 <Tab>Help</Tab>
-                <Tab>Detail</Tab>
+                <Tab disabled={!this.state.detailResults}>Detail</Tab>
               </TabList>
               <TabPanel>
                 TODO: add Psmith help text
