@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 import './App.css';
-const API_URL = 'http://localhost:1337/query/';
+const API_URL = 'http://localhost:1337/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -12,29 +12,34 @@ function encode(thing) {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {value: '', searchResults: []};
+    this.state = {value: '', searchResults: [], detailResults: {}};
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleData = this.handleData.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.detail = this.detail.bind(this);
   }
 
   handleChange(event) {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSearch(event) {
     event.preventDefault();
 
-    const queryURL = API_URL + encode(this.state.value);
+    const queryURL = API_URL + 'query/' + encode(this.state.value);
 
     fetch(queryURL, {
       method: "GET"
     }).then(res => res.json()).then(res => this.setState({searchResults: res}));
   }
 
-  handleData(event) {
-    event.preventDefault();
+  detail(id) {
+    const queryURL = API_URL + 'language/' + id;
+    console.log(id);
+
+    fetch(queryURL, {
+      method: "GET"
+    }).then(res => res.json()).then(res => this.setState({detailResults: res}));
   }
 
   render () {
@@ -42,7 +47,7 @@ class App extends Component {
       <main className="container">
         <div className="row">
           <section id="search" className="col-sm">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSearch}>
               <div id="input-wrapper">
                 <input id="in" type="text" value={this.state.value} onChange={this.handleChange} />
               </div>
@@ -50,7 +55,7 @@ class App extends Component {
             </form>
             
             <div id="res">
-              <SearchResults value={this.state.searchResults} />
+              <SearchResults value={this.state.searchResults} detailFn={this.detail}/>
             </div>
           </section>
           <section id="tabnav" className="col-sm">
@@ -63,7 +68,7 @@ class App extends Component {
                 TODO: add Psmith help text
               </TabPanel>
               <TabPanel>
-                No detail yet
+                <DetailPanel language={this.state.detailResults} />
               </TabPanel>
             </Tabs>
           </section>
@@ -77,7 +82,7 @@ function SearchResults(props) {
   return (
     <table>
       <tbody>
-        {props.value.map(language => <SearchResult key={language.id} language={language}/>)}
+        {props.value.map(language => <SearchResult key={language.id} language={language} detailFn={props.detailFn} />)}
       </tbody>
     </table>
   );
@@ -87,7 +92,9 @@ function SearchResult(props) {
   return (
     <tr>
       <td>
-        {props.language.language_name}
+        <button onClick={() => props.detailFn(props.language.id)}>
+          {props.language.language_name}
+        </button>
       </td>
       <td>
         <a href={"http://phoible.org/inventories/view/" + props.language.id}>
@@ -104,6 +111,34 @@ function SearchResult(props) {
       </td>
     </tr>
   );
+}
+
+function DetailPanel(props) {
+  const language = props.language;
+  return (<div>
+    <PhonemeMatrix name='Consonants' inv={ language.consonants } />
+    <PhonemeMatrix name='Clicks' inv={ language.clicks } />
+    <PhonemeMatrix name='Vowels' inv={ language.vowels } />
+    <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } />
+    <PhonemeArray name='Tones' inv={ language.tones } />
+  </div>);
+}
+
+function PhonemeMatrix(props) {
+  const size = props.inv.size;
+  if (size === 0) return (<div></div>);
+  const contents = props.inv.contents;
+
+  return (<div>
+    <h4 className='language-segments'>{ props.name } ({ size })</h4>
+    <table className='inventory'><tbody>
+      {contents.map(y => <tr>{y.map(x => <td>{ x.join(' ') }</td>)}</tr>)}
+    </tbody></table>
+  </div>)
+}
+
+function PhonemeArray(props) {
+  return (<div>todo</div>)
 }
 
 export default App;
