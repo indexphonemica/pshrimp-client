@@ -73,7 +73,22 @@ function SearchResults(props) {
 function SearchResult(props) {
   return (
     <tr>
-      <td>{props.language.language_name}</td>
+      <td>
+        {props.language.language_name}
+      </td>
+      <td>
+        <a href={"http://phoible.org/inventories/view/" + props.language.id}>
+          {props.language.source}
+        </a>  
+      </td>
+      <td>
+        <a href={"http://ethnologue.com/language/" + props.language.language_code}>
+          {props.language.language_code}
+        </a>
+      </td>
+      <td>
+        {props.language.phonemes.join(' ')}
+      </td>
     </tr>
   );
 }
