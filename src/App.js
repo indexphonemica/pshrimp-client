@@ -140,6 +140,7 @@ function PhonemeMatrix(props) {
   if (size === 0) return (<div></div>);
   const contents = props.inv.contents;
 
+  // TODO this is pretty hairy - there must be a better way!
   return (<div>
     <h4 className='language-segments'>{ props.name } ({ size })</h4>
     <table className='inventory'><tbody>
