@@ -40,11 +40,17 @@ class App extends Component {
 
   detail(id) {
     const queryURL = API_URL + 'language/' + id;
-    console.log(id);
 
     fetch(queryURL, {
       method: "GET"
-    }).then(res => res.json()).then(res => this.setState({detailResults: res, tabIndex: 1}));
+    }).then(
+      res => res.json()
+    ).then(res => { // add the ID so we can use that to make keys
+      res.id = id;
+      return res
+    }).then(
+      res => this.setState({detailResults: res, tabIndex: 1})
+    );
   }
 
   render () {
@@ -121,11 +127,11 @@ function SearchResult(props) {
 function DetailPanel(props) {
   const language = props.language;
   return (<div>
-    <PhonemeMatrix name='Consonants' inv={ language.consonants } />
-    <PhonemeMatrix name='Clicks' inv={ language.clicks } />
-    <PhonemeMatrix name='Vowels' inv={ language.vowels } />
-    <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } />
-    <PhonemeArray name='Tones' inv={ language.tones } />
+    <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
+    <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
+    <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
+    <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
+    <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
   </div>);
 }
 
@@ -137,7 +143,13 @@ function PhonemeMatrix(props) {
   return (<div>
     <h4 className='language-segments'>{ props.name } ({ size })</h4>
     <table className='inventory'><tbody>
-      {contents.map(y => <tr>{y.map(x => <td>{ x.join(' ') }</td>)}</tr>)}
+      {contents.map((y, i) => 
+        <tr key={`${props.inv_id}-${i}`}>
+          {y.map((x, j) => 
+            <td key={`${props.inv_id}-${i}-${j}}`}>
+              { x.join(' ') }
+            </td>)}
+        </tr>)}
     </tbody></table>
   </div>)
 }
