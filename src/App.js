@@ -15,6 +15,7 @@ class App extends Component {
     this.state = {
       value: '', 
       searchResults: [], 
+      shouldHaveSearchResults: false, // don't display 'no results' on load
       detailResults: false,
       tabIndex: 0
     };
@@ -38,7 +39,7 @@ class App extends Component {
     const queryURL = API_URL + 'query/' + encode(str);
     fetch(queryURL, {
       method: "GET"
-    }).then(res => res.json()).then(res => this.setState({searchResults: res}));
+    }).then(res => res.json()).then(res => this.setState({searchResults: res, shouldHaveSearchResults: true}));
   }
 
   detail(id) {
@@ -69,7 +70,7 @@ class App extends Component {
             </form>
             
             <div id="res">
-              <SearchResults value={this.state.searchResults} detailFn={this.detail}/>
+              {this.state.shouldHaveSearchResults ? <SearchResults value={this.state.searchResults} detailFn={this.detail}/> : ''}
             </div>
           </section>
           <section id="tabnav" className="col-sm">
@@ -93,6 +94,7 @@ class App extends Component {
 }
 
 function SearchResults(props) {
+  if (props.value == false) return (<div>No results</div>);
   return (
     <table>
       <tbody>
