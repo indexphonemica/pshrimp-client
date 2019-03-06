@@ -19,6 +19,7 @@ class App extends Component {
       shouldHaveSearchResults: false, // don't display 'no results' on load
       searchError: false,
       detailResults: false,
+      detailError: false,
       tabIndex: 0
     };
 
@@ -69,7 +70,9 @@ class App extends Component {
       res.id = id;
       return res
     }).then(
-      res => this.setState({detailResults: res, tabIndex: 1})
+      res => this.setState({detailResults: res, detailError: false, tabIndex: 1})
+    ).catch(
+      err => this.setState({detailResults: false, detailError: err, tabIndex: 1})
     );
   }
 
@@ -101,7 +104,10 @@ class App extends Component {
                 <HelpText/>
               </TabPanel>
               <TabPanel>
-                <DetailPanel language={this.state.detailResults} />
+                {
+                  this.state.detailError ? <ErrorDialog err={this.state.detailError}/> 
+                    : <DetailPanel language={this.state.detailResults} /> 
+                }
               </TabPanel>
             </Tabs>
           </section>
