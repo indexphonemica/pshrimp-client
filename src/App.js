@@ -17,6 +17,7 @@ class App extends Component {
       value: '', 
       searchResults: [], 
       shouldHaveSearchResults: false, // don't display 'no results' on load
+      searchError: false,
       detailResults: false,
       tabIndex: 0
     };
@@ -40,7 +41,21 @@ class App extends Component {
     const queryURL = API_URL + 'query/' + encode(str);
     fetch(queryURL, {
       method: "GET"
-    }).then(res => res.json()).then(res => this.setState({searchResults: res, shouldHaveSearchResults: true}));
+    }).then(
+      res => res.json()
+    ).then(
+      res => this.setState({
+        searchResults: res, 
+        shouldHaveSearchResults: true,
+        searchError: false
+      })
+    ).catch(
+      err => this.setState({
+        searchResults: [],
+        shouldHaveSearchResults: false,
+        searchError: err
+      })
+    );
   }
 
   detail(id) {
@@ -71,6 +86,7 @@ class App extends Component {
             </form>
             
             <div id="res">
+              <ErrorDialog err={this.state.searchError}/>
               {this.state.shouldHaveSearchResults ? <SearchResults value={this.state.searchResults} detailFn={this.detail}/> : ''}
             </div>
           </section>
@@ -93,6 +109,15 @@ class App extends Component {
       </main>
     );
   }
+}
+
+function ErrorDialog(props) {
+  if (!props.err) return (<div></div>);
+  return (
+    <div className='error'>
+      {props.err.toString()}
+    </div>
+  );
 }
 
 function SearchResults(props) {
