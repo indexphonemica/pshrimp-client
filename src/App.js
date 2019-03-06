@@ -108,7 +108,7 @@ function SearchResult(props) {
   return (
     <tr>
       <td>
-        <button onClick={() => props.detailFn(props.language.id)}>
+        <button className='link-button' onClick={() => props.detailFn(props.language.id)}>
           {props.language.language_name}
         </button>
       </td>
