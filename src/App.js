@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { HelpText } from './HelpText';
 
 import './App.css';
 const API_URL = 'http://localhost:1337/';
@@ -73,6 +74,7 @@ class App extends Component {
               {this.state.shouldHaveSearchResults ? <SearchResults value={this.state.searchResults} detailFn={this.detail}/> : ''}
             </div>
           </section>
+
           <section id="tabnav" className="col-sm">
             <Tabs selectedIndex={this.state.tabIndex} onSelect={tabIndex => this.setState({ tabIndex })}>
               <TabList>
@@ -80,7 +82,7 @@ class App extends Component {
                 <Tab disabled={!this.state.detailResults}>Detail</Tab>
               </TabList>
               <TabPanel>
-                TODO: add Psmith help text
+                <HelpText/>
               </TabPanel>
               <TabPanel>
                 <DetailPanel language={this.state.detailResults} />
@@ -132,6 +134,12 @@ function SearchResult(props) {
 function DetailPanel(props) {
   const language = props.language;
   return (<div>
+    <div>
+      <h3>{ language.language_name } ({ language.source })</h3>
+      <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
+      <div>Family: { language.language_family_genus }</div>
+      <div>ISO 639-3: { language.language_code }</div>
+    </div>
     <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
     <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
     <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
