@@ -38,13 +38,25 @@ class App extends Component {
     this.search(this.state.value);
   }
 
-  search(str) {
-    const queryURL = API_URL + 'query/' + encode(str);
-    fetch(queryURL, {
+  fetchJSON(queryURL) {
+    return fetch(queryURL, {
       method: "GET"
     }).then(
       res => res.json()
-    ).then(
+    ).then(res => {
+      if (res.hasOwnProperty('error')) {
+        throw new Error(res.error);
+      } else {
+        return res;
+      }
+    });
+  }
+
+  search(str) {
+    const queryURL = API_URL + 'query/' + encode(str);
+    this.fetchJSON(queryURL, {
+      method: "GET"
+    }).then(
       res => this.setState({
         searchResults: res, 
         shouldHaveSearchResults: true,
@@ -119,9 +131,14 @@ class App extends Component {
 
 function ErrorDialog(props) {
   if (!props.err) return (<div></div>);
+  var errTxt = props.err.toString();
+
+  // make sure there's only one Error: before the text
+  if (!/[A-Za-z]*Error: /.test(errTxt)) errTxt = 'Error: ' + errTxt;
+  if (/Error: Error:/.test(errTxt)) errTxt = errTxt.slice(7);
   return (
     <div className='error'>
-      {props.err.toString()}
+      {errTxt}
     </div>
   );
 }
