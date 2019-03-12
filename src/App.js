@@ -4,7 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import { HelpText } from './HelpText';
 
 import './App.css';
-const API_URL = 'http://localhost:1337/';
+const API_URL = 'http://pshrimp-server.herokuapp.com/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
