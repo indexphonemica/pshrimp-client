@@ -173,7 +173,7 @@ function SearchResult(props) {
         </a>
       </td>
       <td>
-        {props.language.phonemes.join(' ')}
+        {props.language.phonemes ? props.language.phonemes.join(' ') : ''}
       </td>
     </tr>
   );
