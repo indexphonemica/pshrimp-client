@@ -1,13 +1,52 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import 'leaflet/dist/leaflet.css';
 import { HelpText } from './HelpText';
-
+import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import './App.css';
+
+// fix react-leaflet markers - see https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-410450387
+import L from 'leaflet';
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
 const API_URL = 'http://pshrimp.herokuapp.com/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
+}
+
+class SimpleExample extends Component {
+  constructor() {
+    super()
+    this.state = {
+      lat: 51.505,
+      lng: -0.09,
+      zoom: 13
+    }
+  }
+
+  render() {
+    const position = [this.state.lat, this.state.lng];
+    return (
+      <LeafletMap center={[0,0]} zoom='1'>
+        <TileLayer
+          attribution='Thunderforest'
+          url='https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=7ee1e377fdd34773b610a69bd8e96e6f'
+        />
+        <Marker position={position}>
+          <Popup>
+            A pretty CSS3 popup. <br/> Easily customizable.
+          </Popup>
+        </Marker>
+      </LeafletMap>
+    );
+  }
 }
 
 class App extends Component {
@@ -111,6 +150,7 @@ class App extends Component {
               <TabList>
                 <Tab>Help</Tab>
                 <Tab disabled={!this.state.detailResults}>Detail</Tab>
+                <Tab disabled={!this.state.shouldHaveSearchResults}>Map</Tab>
               </TabList>
               <TabPanel>
                 <HelpText/>
@@ -120,6 +160,9 @@ class App extends Component {
                   this.state.detailError ? <ErrorDialog err={this.state.detailError}/> 
                     : <DetailPanel language={this.state.detailResults} /> 
                 }
+              </TabPanel>
+              <TabPanel>
+                <SimpleExample/>
               </TabPanel>
             </Tabs>
           </section>
