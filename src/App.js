@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { HelpText } from './HelpText';
-import { MarkersMap } from './MarkersMap';
+// import { MarkersMap } from './MarkersMap';
 import './App.css';
 
 const API_URL = 'http://pshrimp.herokuapp.com/';
@@ -10,8 +10,6 @@ const API_URL = 'http://pshrimp.herokuapp.com/';
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
 }
-
-
 
 class App extends Component {
   constructor(props) {
@@ -92,9 +90,9 @@ class App extends Component {
   }
 
   render () {
-    const markersMapDataFn = function (d) {
-      return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
-    }
+    // const markersMapDataFn = function (d) {
+    //   return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
+    // }
 
     return (
       <main className="container">
@@ -118,7 +116,7 @@ class App extends Component {
               <TabList>
                 <Tab>Help</Tab>
                 <Tab disabled={!this.state.detailResults}>Detail</Tab>
-                <Tab disabled={!this.state.shouldHaveSearchResults}>Map</Tab>
+                
               </TabList>
               <TabPanel>
                 <HelpText/>
@@ -129,10 +127,7 @@ class App extends Component {
                     : <DetailPanel language={this.state.detailResults} /> 
                 }
               </TabPanel>
-              <TabPanel>
-                <MarkersMap data={this.state.searchResults} dataFn={markersMapDataFn} />
-                (Under development.)
-              </TabPanel>
+              
             </Tabs>
           </section>
         </div>
@@ -176,13 +171,8 @@ function SearchResult(props) {
       </td>
       <td>
         <a href={"http://phoible.org/inventories/view/" + props.language.id}>
-          {props.language.source}
+          {props.language.source.toUpperCase()}
         </a>  
-      </td>
-      <td>
-        <a href={"http://ethnologue.com/language/" + props.language.language_code}>
-          ({props.language.language_code})
-        </a>
       </td>
       <td>
         {props.language.phonemes ? props.language.phonemes.join(' ') : ''}
@@ -195,14 +185,16 @@ function DetailPanel(props) {
   const language = props.language;
   return (<div>
     <div>
-      <h3>{ language.language_name } ({ language.source })</h3>
+      <h3>{ language.language_name } ({ language.source.toUpperCase() })</h3>
       <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
-      <div>Family: { language.language_family_genus }</div>
-      <div>ISO 639-3: { language.language_code }</div>
+      <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
+          {props.language.glottocode}
+        </a></div>
     </div>
     <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
     <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
     <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
+    <PhonemeMatrix name='Diphthongs' inv= { language.diphthongs } inv_id={ language.id } />
     <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
     <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
   </div>);
