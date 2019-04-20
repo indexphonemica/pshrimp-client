@@ -19,8 +19,6 @@ function HelpText(props) {
 
                     <p>To search for multiple feature values on the same phoneme, separate the feature components with a semicolon. For example, <code>any +syllabic;+consonantal</code> will return a list of doculects with syllabic consonants.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages <em>without</em> specific properties, use <code>!field:value</code>. Values are case-insensitive. For example, <code>country:australia</code> will return all doculects that PHOIBLE lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. The available fields are listed <a href="langprops.html">here</a>.</p>
-
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
                     <h3>Examples</h3>
@@ -51,20 +49,6 @@ function HelpText(props) {
                     <p className='example-text'>Find doculects with /ʰd/ and no /m/:</p>
                     <code className='example'>/ʰd/ no /m/ and<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;Hoti</code>
-                    <p className='example-text'>Find doculects with no non-glottal fricatives spoken outside Australia:</p>
-                    <code className='example'>no -sonorant;+delayed_release !country:australia and<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Auyana<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Nasioi<br/>
-                    (etc. - 19 results)</code>
-                    <p className='example-text'>Find doculects with no labial plosives spoken in the United States:</p>
-                    <code className='example'>no +consonantal;+labial;-dorsal;-continuant;-sonorant country:united_states and<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Wichita<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;ALEUT<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;CHEROKEE<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;EYAK<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;WICHITA<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Huron<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Tanacross</code>
 
                     <h3>List of features</h3>
                     <p>These are taken directly from PHOIBLE's featural decomposition, except the names of the features have been converted from camelCase to snake_case and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p><code>
