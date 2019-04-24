@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { HelpText } from './HelpText';
-// import { MarkersMap } from './MarkersMap';
+import { MarkersMap } from './MarkersMap';
 import './App.css';
 
 const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
@@ -90,9 +90,9 @@ class App extends Component {
   }
 
   render () {
-    // const markersMapDataFn = function (d) {
-    //   return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
-    // }
+    const markersMapDataFn = function (d) {
+      return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
+    }
 
     return (
       <main className="container">
@@ -116,7 +116,7 @@ class App extends Component {
               <TabList>
                 <Tab>Help</Tab>
                 <Tab disabled={!this.state.detailResults}>Detail</Tab>
-                
+                <Tab disabled={!this.state.searchResults}>Map</Tab>
               </TabList>
               <TabPanel>
                 <HelpText/>
@@ -127,7 +127,9 @@ class App extends Component {
                     : <DetailPanel language={this.state.detailResults} /> 
                 }
               </TabPanel>
-              
+              <TabPanel>
+                <MarkersMap dataFn={markersMapDataFn} data={this.state.searchResults} />
+              </TabPanel>
             </Tabs>
           </section>
         </div>
@@ -135,6 +137,10 @@ class App extends Component {
     );
   }
 }
+
+// ----------------
+// -- Components --
+// ----------------
 
 function ErrorDialog(props) {
   if (!props.err) return (<div></div>);
@@ -190,6 +196,7 @@ function DetailPanel(props) {
       <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
           {props.language.glottocode}
         </a></div>
+      <div>Family: { language.family || 'Isolate' } {language.genus ? '(' + language.genus + ')' : '' }</div>
     </div>
     <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
     <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
