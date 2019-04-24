@@ -189,21 +189,26 @@ function SearchResult(props) {
 
 function DetailPanel(props) {
   const language = props.language;
-  return (<div>
-    <div>
-      <h3>{ language.language_name } ({ language.source.toUpperCase() })</h3>
-      <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
-      <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
-          {props.language.glottocode}
-        </a></div>
-      <div>Family: { language.family || 'Isolate' } {language.genus ? '(' + language.genus + ')' : '' }</div>
+  return (
+  <div className='sticky-wrapper-wrapper'>
+    <div className='sticky-wrapper'>
+      <div className='sticky-panel'>
+        <div>
+          <h3>{ language.language_name } ({ language.source.toUpperCase() })</h3>
+          <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
+          <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
+              {props.language.glottocode}
+            </a></div>
+          <div>Family: { language.family || 'Isolate' } {language.genus ? '(' + language.genus + ')' : '' }</div>
+        </div>
+        <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
+        <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
+        <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
+        <PhonemeMatrix name='Diphthongs' inv= { language.diphthongs } inv_id={ language.id } />
+        <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
+        <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
+      </div>
     </div>
-    <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
-    <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
-    <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
-    <PhonemeMatrix name='Diphthongs' inv= { language.diphthongs } inv_id={ language.id } />
-    <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
-    <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
   </div>);
 }
 
