@@ -5,7 +5,7 @@ import { HelpText } from './HelpText';
 // import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-const API_URL = 'http://pshrimp.herokuapp.com/';
+const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
