@@ -5,7 +5,7 @@ import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
+const API_URL = window.location.protocol + '//localhost:1337/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -177,7 +177,6 @@ function SearchResult(props) {
       </td>
       <td>
         <a href={"http://phoible.org/inventories/view/" + props.language.id}>
-          {props.language.source.toUpperCase()}
         </a>  
       </td>
       <td>
@@ -194,12 +193,7 @@ function DetailPanel(props) {
     <div className='sticky-wrapper'>
       <div className='sticky-panel'>
         <div>
-          <h3>{ language.language_name } ({ language.source.toUpperCase() })</h3>
-          <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
-          <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
-              {props.language.glottocode}
-            </a></div>
-          <div>Family: { language.family || 'Isolate' } {language.genus ? '(' + language.genus + ')' : '' }</div>
+          <h3>{ language.language_name }</h3>
         </div>
         <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
         <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
