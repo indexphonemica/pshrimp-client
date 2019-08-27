@@ -161,7 +161,7 @@ function SearchResults(props) {
   return (
     <table>
       <tbody>
-        {props.value.map(language => <SearchResult key={language.id} language={language} detailFn={props.detailFn} />)}
+        {props.value.map(language => <SearchResult key={language.inventory_id} language={language} detailFn={props.detailFn} />)}
       </tbody>
     </table>
   );
@@ -171,13 +171,14 @@ function SearchResult(props) {
   return (
     <tr>
       <td>
-        <button className='link-button' onClick={() => props.detailFn(props.language.id)}>
+        <button className='link-button' onClick={() => props.detailFn(props.language.inventory_id)}>
           {props.language.language_name}
         </button>
       </td>
       <td>
-        <a href={"http://phoible.org/inventories/view/" + props.language.id}>
-        </a>  
+        <button className='link-button' onClick={() => props.detailFn(props.language.inventory_id)}>
+          {props.language.inventory_id}
+        </button>
       </td>
       <td>
         {props.language.phonemes ? props.language.phonemes.join(' ') : ''}
@@ -194,6 +195,7 @@ function DetailPanel(props) {
       <div className='sticky-panel'>
         <div>
           <h3>{ language.language_name }</h3>
+          <SourcePanel doculect={ language } />
         </div>
         <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
         <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
@@ -204,6 +206,36 @@ function DetailPanel(props) {
       </div>
     </div>
   </div>);
+}
+
+function SourcePanel(props) {
+  // Note 'doculect' here - this is correct; the rest of the code is lacking zhengming (TODO)
+  const doculect = props.doculect;
+
+  // Format author list
+  // If there are multiple authors, use the format Lastname(, Lastname...) & Lastname.
+  // If there's only one author, use Lastname, Firstname.
+  const authors_arr = doculect.source_author.split(';');
+  const authors = (
+    (authors_arr.length > 1) ? 
+      (authors_arr.slice(0, authors_arr.length-1).map(x => x.split(',')[0]).join(', ') 
+        + ' & ' 
+        + authors_arr[authors_arr.length-1].split(',')[0])
+      : authors_arr[0])
+  const source_bibkey_url = `https://glottolog.org/resource/reference/id/${ doculect.source_bibkey }`
+
+  return (
+      <div>
+        <p>
+          { doculect.source_title }. {authors}. {doculect.source_year}
+        </p>
+        <p>
+          <a href={source_bibkey_url}>
+            {doculect.source_bibkey}
+          </a>
+        </p>
+      </div>
+  )
 }
 
 function PhonemeMatrix(props) {
