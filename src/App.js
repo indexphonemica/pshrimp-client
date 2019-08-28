@@ -157,7 +157,7 @@ function ErrorDialog(props) {
 }
 
 function SearchResults(props) {
-  if (props.value == false) return (<div>No results</div>);
+  if (props.value === false) return (<div>No results</div>);
   return (
     <table>
       <tbody>
@@ -222,16 +222,21 @@ function SourcePanel(props) {
         + ' & ' 
         + authors_arr[authors_arr.length-1].split(',')[0])
       : authors_arr[0])
+  const source_string = `${doculect.source_title}. ${authors}. ${doculect.source_year}`
+
   const source_bibkey_url = `https://glottolog.org/resource/reference/id/${ doculect.source_bibkey }`
 
   return (
       <div>
         <p>
-          { doculect.source_title }. {authors}. {doculect.source_year}
+          { source_string }
         </p>
         <p>
           <a href={source_bibkey_url}>
             {doculect.source_bibkey}
+          </a>
+          <a href={doculect.source_url}>
+            { doculect.source_url ? '🔗' : '' }
           </a>
         </p>
       </div>
