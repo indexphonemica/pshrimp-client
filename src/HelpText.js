@@ -3,7 +3,7 @@ import React from 'react';
 function HelpText(props) {
 	return (<div id='help'><h3>About</h3>
 
-                    <p>This is an unofficial search frontend for PHOIBLE.</p>
+                    <p>This is a search tool for the Index Phonemica database.</p>
 
                     <h3>Searching</h3>
 
@@ -11,7 +11,7 @@ function HelpText(props) {
 
                     <p>A <em>phoneme term</em> consists of a phoneme enclosed in forward slashes, optionally preceded by "no". This will find all doculects that have (or don't have, if there's a preceding "no") the given phoneme.</p>
 
-                    <p>For example, <code>/t̪ʙ/</code> will return all doculects that contain the phoneme represented in PHOIBLE by the text string <code>t̪ʙ</code>, and <code>no /m/</code> will return all doculects that do not contain the phoneme represented in PHOIBLE by the text string <code>/m/</code>.</p>
+                    <p>For example, <code>/t̪ʙ/</code> will return all doculects that contain the phoneme represented in Index Phonemica by the text string <code>t̪ʙ</code>, and <code>no /m/</code> will return all doculects that do not contain the phoneme represented in Index Phonemica by the text string <code>/m/</code>.</p>
 
                     <p>A <em>feature term</em> consists of a number (optionally preceded by a <code>&lt;</code> or <code>&gt;</code> sign), a space, and a string of pluses and minuses followed (with no intervening space) by the name of the feature to search. For example, <code>2 +coronal</code> will return all doculects with exactly two [+coronal] segments, and <code>&gt;30 +syllabic</code> will return all doculects with more than thirty vowels.</p>
 
@@ -21,37 +21,25 @@ function HelpText(props) {
 
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
+                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>.</p>
+
+
+
                     <h3>Examples</h3>
 
                     <p className='example-text'>Find doculects with only two coronal consonants:</p>
-                    <code className='example'>2 +coronal<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;HAWAIIAN<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;PIRAHA<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;ROTOKAS<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Pirahã</code>
-                    <p className='example-text'>Find doculects with two or fewer vowels:</p>
-                    <code className='example'>&lt;3 +syllabic<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;zulgo<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Cuvok<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Buwal</code>
-                    <p className='example-text'>Find doculects with two or fewer vowels or the phoneme /ʰd/:</p>
-                    <code className='example'>&lt;3 +syllabic /ʰd/ or<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;zulgo<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Cuvok<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Buwal<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Günün Yajich<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Hoti</code>
+                    <code className='example'>2 +coronal</code>
+                    <p className='example-text'>Find doculects with three or fewer vowels:</p>
+                    <code className='example'>&lt;4 +syllabic</code>
+                    <p className='example-text'>Find doculects with three or fewer vowels or the phoneme /d/:</p>
+                    <code className='example'>&lt;4 +syllabic /d/ or</code>
                     <p className='example-text'>Find doculects with no rounded segments:</p>
-                    <code className='example'>no +round<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Oneida<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;NIMBORAN<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Gu'de</code>
-                    <p className='example-text'>Find doculects with /ʰd/ and no /m/:</p>
-                    <code className='example'>/ʰd/ no /m/ and<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Hoti</code>
+                    <code className='example'>no +round</code>
+                    <p className='example-text'>Find doculects with /d/ and no /m/:</p>
+                    <code className='example'>/d/ no /m/ and</code>
 
                     <h3>List of features</h3>
-                    <p>These are taken directly from PHOIBLE's featural decomposition, except the names of the features have been converted from camelCase to snake_case and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p><code>
+                    <p>Index Phonemica's feature system is currently derived from <a href="https://phoible.org/">PHOIBLE</a>'s, but the names of the features have been converted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p><code>
                     <ul>
                         <li>tone
                         </li><li>stress
