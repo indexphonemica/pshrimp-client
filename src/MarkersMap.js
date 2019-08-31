@@ -32,10 +32,9 @@ function MarkersMap(props) {
   const center = [0,0];
   const zoom = 1;
 
-  // dataFunc should return {position: [lat, long], popupText: 'foo'}
-  const markerData = props.data.map(d => props.dataFn(d));
-
-  const markers = markerData.map(m => <MarkerWithPopup position={m.position} popupText={m.popupText} />);
+  // React won't be happy if we pass in two markers that want the same position and popup text,
+  // but that shouldn't happen anyway.
+  const markers = props.data.map(m => <MarkerWithPopup position={m.position} popupText={m.popupText} key={m.position + m.popupText} />);
 
   return (
     <LeafletMap center={[0,0]} zoom='1'>

@@ -90,8 +90,22 @@ class App extends Component {
   }
 
   render () {
-    const markersMapDataFn = function (d) {
-      return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
+    const doculectRowToPopupText = function (row) {
+      return `${row.language_name} (${row.inventory_id})`;
+    }
+    const processMapData = function (searchResults) {
+      var languages = {};
+      searchResults.forEach(function (row) {
+        if (languages[row.glottocode] === undefined) {
+          languages[row.glottocode] = {
+            'position':  [row.latitude || 0, row.longitude || 0]
+          , 'popupText': doculectRowToPopupText(row)
+          }
+        } else {
+          languages[row.glottocode].popupText += (', ' + doculectRowToPopupText(row));
+        }
+      });
+      return Object.values(languages);
     }
 
     return (
@@ -128,7 +142,7 @@ class App extends Component {
                 }
               </TabPanel>
               <TabPanel>
-                <MarkersMap dataFn={markersMapDataFn} data={this.state.searchResults} />
+                <MarkersMap data={processMapData(this.state.searchResults)} />
               </TabPanel>
             </Tabs>
           </section>
@@ -205,7 +219,7 @@ function DetailPanel(props) {
         <PhonemeArray name='Tones' inv={ doculect.tones } inv_id={ doculect.id } />
         <div>
           { doculect.notes ? <h4>Notes</h4> : '' }
-          { (doculect.notes || '').split('\n').map(x => (<p>{x}</p>)) }
+          { (doculect.notes || '').split('\n').map(x => (<p key={x}>{x}</p>)) }
         </div>
       </div>
     </div>
