@@ -5,7 +5,7 @@ import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-const API_URL = window.location.protocol + '//localhost:1337/api/';
+const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
