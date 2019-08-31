@@ -5,7 +5,7 @@ import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-const API_URL = window.location.protocol + '//localhost:1337/';
+const API_URL = window.location.protocol + '//localhost:1337/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -188,21 +188,25 @@ function SearchResult(props) {
 }
 
 function DetailPanel(props) {
-  const language = props.language;
+  const doculect = props.language;
   return (
   <div className='sticky-wrapper-wrapper'>
     <div className='sticky-wrapper'>
       <div className='sticky-panel'>
         <div>
-          <h3>{ language.language_name }</h3>
-          <SourcePanel doculect={ language } />
+          <h3>{ doculect.language_name }</h3>
+          <SourcePanel doculect={ doculect } />
         </div>
-        <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
-        <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
-        <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
-        <PhonemeMatrix name='Diphthongs' inv= { language.diphthongs } inv_id={ language.id } />
-        <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
-        <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
+        <PhonemeMatrix name='Consonants' inv={ doculect.consonants } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Clicks' inv={ doculect.clicks } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Vowels' inv={ doculect.vowels } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Diphthongs' inv= { doculect.diphthongs } inv_id={ doculect.id } />
+        <PhonemeArray name='Syllabic consonants' inv={ doculect.syllabic_consonants } inv_id={ doculect.id } />
+        <PhonemeArray name='Tones' inv={ doculect.tones } inv_id={ doculect.id } />
+        <div>
+          { doculect.notes ? <h4>Notes</h4> : '' }
+          { (doculect.notes || '').split('\n').map(x => (<p>{x}</p>)) }
+        </div>
       </div>
     </div>
   </div>);
