@@ -5,15 +5,58 @@ import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
+const API_URL = window.location.protocol + '//localhost:1337/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
+}
+function decode(thing) {
+  return decodeURIComponent(thing.replace(/\\\\/g,'\\').replace(/\\\+/g,'&').replace(/\\e/g,'='));
+}
+
+// URL handling functions from Psmith
+function getHash() { // could cache this but eh
+  var hash = window.location.hash;
+  if (hash === '') return null;
+  hash = hash.slice(1, window.location.hash.length); // discard initial #
+
+  hash = hash.split('&');
+
+  var res = {};
+  for (let el of hash) {
+    let tmp = el.split('=');
+    if (tmp.length < 2) continue;
+    res[decode(tmp[0])] = decode(tmp[1]);
+  }
+  return res;
+}
+
+function setHash(k, v) {
+  var hash = getHash();
+
+  if (hash === null) hash = {};
+  hash[k] = v;
+  writeHash(hash);
+}
+
+function writeHash(hash) {
+  var res = Object.keys(hash).map(k => `${encode(k)}=${encode(hash[k])}`);
+  window.location.hash = res.join('&');
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // If the hash points to a detail panel, we need to hide the help panel,
+    // to avoid flashing the help text as the detail query loads.
+    // We do this by displaying hidden fourth TabPanel that contains nothing.
+    var tabIndex = 0;
+    const hash = getHash();
+    if (hash && hash.hasOwnProperty('detail') && hash.detail) {
+      tabIndex = 4;
+    }
+
     this.state = {
       value: '', 
       searchResults: [], 
@@ -21,12 +64,29 @@ class App extends Component {
       searchError: false,
       detailResults: false,
       detailError: false,
-      tabIndex: 0
+      tabIndex: tabIndex
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.detail = this.detail.bind(this);
+  }
+
+  // Pull linked searches out of the URL and send the network request.
+  componentDidMount() {
+    const hash = getHash();
+
+    try {
+      if (hash.search) {
+        this.search(hash.search);
+      }
+      if (hash.detail) {
+        this.detail(hash.detail);
+      }
+    } catch (e) {
+      window.location.hash = '';
+      return;
+    }
   }
 
   handleChange(event) {
@@ -35,6 +95,7 @@ class App extends Component {
 
   handleSearch(event) {
     event.preventDefault();
+    setHash('search', this.state.value);
 
     this.search(this.state.value);
   }
@@ -74,6 +135,7 @@ class App extends Component {
 
   detail(id) {
     const queryURL = API_URL + 'language/' + id;
+    setHash('detail', id);
 
     fetch(queryURL, {
       method: "GET"
@@ -144,6 +206,7 @@ class App extends Component {
               <TabPanel>
                 <MarkersMap data={processMapData(this.state.searchResults)} />
               </TabPanel>
+              <TabPanel />
             </Tabs>
           </section>
         </div>
