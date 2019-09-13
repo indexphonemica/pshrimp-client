@@ -5,15 +5,55 @@ import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
+import { SourceCell, SourcePanel } from './phoible'
+
 const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
 
 function encode(thing) {
-  return encodeURIComponent(thing.replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
+  return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
+}
+function decode(thing) {
+  return decodeURIComponent(thing.replace(/\\\\/g,'\\').replace(/\\\+/g,'&').replace(/\\e/g,'='));
+}
+
+// URL handling functions from Psmith
+function getHash() { // could cache this but eh
+  var hash = window.location.hash;
+  if (hash === '') return null;
+  hash = hash.slice(1, window.location.hash.length); // discard initial #
+  hash = hash.split('&');
+  var res = {};
+  for (let el of hash) {
+    let tmp = el.split('=');
+    if (tmp.length < 2) continue;
+    res[decode(tmp[0])] = decode(tmp[1]);
+  }
+  return res;
+}
+function setHash(k, v) {
+  var hash = getHash();
+  if (hash === null) hash = {};
+  hash[k] = v;
+  writeHash(hash);
+}
+function writeHash(hash) {
+  var res = Object.keys(hash).map(k => `${encode(k)}=${encode(hash[k])}`);
+  window.location.hash = res.join('&');
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // If the hash points to a detail panel, we need to hide the help panel,
+    // to avoid flashing the help text as the detail query loads.
+    // We do this by displaying hidden fourth TabPanel that contains nothing.
+    var tabIndex = 0;
+    const hash = getHash();
+    if (hash && hash.hasOwnProperty('detail') && hash.detail) {
+      tabIndex = 4;
+    }
+
     this.state = {
       value: '', 
       searchResults: [], 
@@ -21,12 +61,28 @@ class App extends Component {
       searchError: false,
       detailResults: false,
       detailError: false,
-      tabIndex: 0
+      tabIndex: tabIndex
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.detail = this.detail.bind(this);
+  }
+
+  // Pull linked searches out of the URL and send the network request.
+  componentDidMount() {
+    const hash = getHash();
+    try {
+      if (hash.search) {
+        this.search(hash.search);
+      }
+      if (hash.detail) {
+        this.detail(hash.detail);
+      }
+    } catch (e) {
+      window.location.hash = '';
+      return;
+    }
   }
 
   handleChange(event) {
@@ -35,6 +91,7 @@ class App extends Component {
 
   handleSearch(event) {
     event.preventDefault();
+    setHash('search', this.state.value);
 
     this.search(this.state.value);
   }
@@ -74,6 +131,7 @@ class App extends Component {
 
   detail(id) {
     const queryURL = API_URL + 'language/' + id;
+    setHash('detail', id);
 
     fetch(queryURL, {
       method: "GET"
@@ -90,8 +148,22 @@ class App extends Component {
   }
 
   render () {
-    const markersMapDataFn = function (d) {
-      return {'position': [d.latitude || 0, d.longitude || 0], 'popupText': `${d.language_name} (${d.source})`}
+    const doculectRowToPopupText = function (row) {
+      return `${row.language_name} (${row.inventory_id})`;
+    }
+    const processMapData = function (searchResults) {
+      var languages = {};
+      searchResults.forEach(function (row) {
+        if (languages[row.glottocode] === undefined) {
+          languages[row.glottocode] = {
+            'position':  [row.latitude || 0, row.longitude || 0]
+          , 'popupText': doculectRowToPopupText(row)
+          }
+        } else {
+          languages[row.glottocode].popupText += (', ' + doculectRowToPopupText(row));
+        }
+      });
+      return Object.values(languages);
     }
 
     return (
@@ -128,7 +200,7 @@ class App extends Component {
                 }
               </TabPanel>
               <TabPanel>
-                <MarkersMap dataFn={markersMapDataFn} data={this.state.searchResults} />
+                <MarkersMap data={processMapData(this.state.searchResults)} />
               </TabPanel>
             </Tabs>
           </section>
@@ -161,7 +233,7 @@ function SearchResults(props) {
   return (
     <table>
       <tbody>
-        {props.value.map(language => <SearchResult key={language.id} language={language} detailFn={props.detailFn} />)}
+        {props.value.map(language => <SearchResult key={language.inventory_id} language={language} detailFn={props.detailFn} />)}
       </tbody>
     </table>
   );
@@ -171,14 +243,12 @@ function SearchResult(props) {
   return (
     <tr>
       <td>
-        <button className='link-button' onClick={() => props.detailFn(props.language.id)}>
+        <button className='link-button' onClick={() => props.detailFn(props.language.inventory_id)}>
           {props.language.language_name}
         </button>
       </td>
       <td>
-        <a href={"http://phoible.org/inventories/view/" + props.language.id}>
-          {props.language.source.toUpperCase()}
-        </a>  
+        <SourceCell language={props.language} /> 
       </td>
       <td>
         {props.language.phonemes ? props.language.phonemes.join(' ') : ''}
@@ -194,12 +264,7 @@ function DetailPanel(props) {
     <div className='sticky-wrapper'>
       <div className='sticky-panel'>
         <div>
-          <h3>{ language.language_name } ({ language.source.toUpperCase() })</h3>
-          <a href={ "https://phoible.org/inventories/view/" + language.id }>View on phoible.org</a>
-          <div>Glottocode: <a href={"https://glottolog.org/resource/languoid/id/" + props.language.glottocode}>
-              {props.language.glottocode}
-            </a></div>
-          <div>Family: { language.family || 'Isolate' } {language.genus ? '(' + language.genus + ')' : '' }</div>
+          <SourcePanel doculect={ language } />
         </div>
         <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
         <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
