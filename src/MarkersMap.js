@@ -37,7 +37,7 @@ function MarkersMap(props) {
   const markers = props.data.map(m => <MarkerWithPopup position={m.position} popupText={m.popupText} key={m.position + m.popupText} />);
   
   return (
-    <LeafletMap center={[0,0]} zoom='1'>
+    <LeafletMap center={center} zoom={zoom}>
       <TileLayer
         attribution='Thunderforest'
         url='https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=7ee1e377fdd34773b610a69bd8e96e6f'
