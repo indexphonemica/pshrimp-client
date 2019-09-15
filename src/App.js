@@ -58,6 +58,7 @@ class App extends Component {
       value: '', 
       searchResults: [], 
       shouldHaveSearchResults: false, // don't display 'no results' on load
+      searchLoading: false, // display a loading dialog while a search is loading
       searchError: false,
       detailResults: false,
       detailError: false,
@@ -112,19 +113,22 @@ class App extends Component {
 
   search(str) {
     const queryURL = API_URL + 'query/' + encode(str);
+    this.setState({searching: true});
     this.fetchJSON(queryURL, {
       method: "GET"
     }).then(
       res => this.setState({
         searchResults: res, 
         shouldHaveSearchResults: true,
-        searchError: false
+        searchError: false,
+        searching: false
       })
     ).catch(
       err => this.setState({
         searchResults: [],
         shouldHaveSearchResults: false,
-        searchError: err
+        searchError: err,
+        searching: false
       })
     );
   }
@@ -175,6 +179,7 @@ class App extends Component {
                 <input id="in" type="text" value={this.state.value} onChange={this.handleChange} />
               </div>
               <input id="submit" type="submit" value="Search" />
+              { this.state.searching ? <SearchingIcon/> : '' }
             </form>
             
             <div id="res">
@@ -208,6 +213,12 @@ class App extends Component {
       </main>
     );
   }
+}
+
+function SearchingIcon () {
+  return (
+    <span>Loading...</span>
+  )
 }
 
 // ----------------
