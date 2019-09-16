@@ -54,12 +54,33 @@ a[tabindex] {
 .nav {
   height: 40px;
 }
-#detail { /* added by tabnav.js */
-  position: sticky;
-  top: 10px;
+
+/* 
+Make the detail panel sticky, so you don't have to scroll back up to see it.
+If anyone has a better way to do this, let me know.
+*/
+.react_tabs__tab_list {
+  height: 38px;
+}
+.react-tabs {
+  min-height: 100%;
+}
+.sticky-wrapper-wrapper {
+  min-height: 100%;
+}
+.sticky-wrapper {
+  height: 100%;
+  position: absolute;
+  margin-right: 0;
   width: 100%;
-  max-height: calc(100vh - 60px); /* 40px for navs, 20px for body margin-top */
-  overflow: auto;
+}
+.sticky-panel {
+    position: sticky;
+    top: 10px;
+    width: 100%;
+    max-height: calc(100vh - 68px); /* 40px for navs, 20px for body margin-top, 8px for...? */
+    overflow: auto;
+    padding-right: 20px;
 }
 
 
