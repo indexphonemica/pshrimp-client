@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import { HelpText } from './HelpText';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel } from './phoible'
-
-const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
+import { SourceCell, SourcePanel, HelpText } from './iphon'
+const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
