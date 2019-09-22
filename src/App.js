@@ -5,7 +5,8 @@ import { MarkersMap } from './MarkersMap';
 import './App.css';
 
 import { SourceCell, SourcePanel, HelpText } from './iphon'
-const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
+
+const API_URL = window.location.protocol + '//localhost:1337/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -19,7 +20,9 @@ function getHash() { // could cache this but eh
   var hash = window.location.hash;
   if (hash === '') return null;
   hash = hash.slice(1, window.location.hash.length); // discard initial #
+
   hash = hash.split('&');
+
   var res = {};
   for (let el of hash) {
     let tmp = el.split('=');
@@ -28,12 +31,15 @@ function getHash() { // could cache this but eh
   }
   return res;
 }
+
 function setHash(k, v) {
   var hash = getHash();
+
   if (hash === null) hash = {};
   hash[k] = v;
   writeHash(hash);
 }
+
 function writeHash(hash) {
   var res = Object.keys(hash).map(k => `${encode(k)}=${encode(hash[k])}`);
   window.location.hash = res.join('&');
@@ -71,6 +77,7 @@ class App extends Component {
   // Pull linked searches out of the URL and send the network request.
   componentDidMount() {
     const hash = getHash();
+
     try {
       if (hash.search) {
         this.search(hash.search);
@@ -205,6 +212,7 @@ class App extends Component {
               <TabPanel>
                 <MarkersMap data={processMapData(this.state.searchResults)} />
               </TabPanel>
+              <TabPanel />
             </Tabs>
           </section>
         </div>
@@ -238,7 +246,7 @@ function ErrorDialog(props) {
 }
 
 function SearchResults(props) {
-  if (props.value == false) return (<div>No results</div>);
+  if (props.value === false) return (<div>No results</div>);
   return (
     <table>
       <tbody>
@@ -267,20 +275,24 @@ function SearchResult(props) {
 }
 
 function DetailPanel(props) {
-  const language = props.language;
+  const doculect = props.language;
   return (
   <div className='sticky-wrapper-wrapper'>
     <div className='sticky-wrapper'>
       <div className='sticky-panel'>
         <div>
-          <SourcePanel doculect={ language } />
+          <SourcePanel doculect={ doculect } />
         </div>
-        <PhonemeMatrix name='Consonants' inv={ language.consonants } inv_id={ language.id } />
-        <PhonemeMatrix name='Clicks' inv={ language.clicks } inv_id={ language.id } />
-        <PhonemeMatrix name='Vowels' inv={ language.vowels } inv_id={ language.id } />
-        <PhonemeMatrix name='Diphthongs' inv= { language.diphthongs } inv_id={ language.id } />
-        <PhonemeArray name='Syllabic consonants' inv={ language.syllabic_consonants } inv_id={ language.id } />
-        <PhonemeArray name='Tones' inv={ language.tones } inv_id={ language.id } />
+        <PhonemeMatrix name='Consonants' inv={ doculect.consonants } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Clicks' inv={ doculect.clicks } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Vowels' inv={ doculect.vowels } inv_id={ doculect.id } />
+        <PhonemeMatrix name='Diphthongs' inv= { doculect.diphthongs } inv_id={ doculect.id } />
+        <PhonemeArray name='Syllabic consonants' inv={ doculect.syllabic_consonants } inv_id={ doculect.id } />
+        <PhonemeArray name='Tones' inv={ doculect.tones } inv_id={ doculect.id } />
+        <div>
+          { doculect.notes ? <h4>Notes</h4> : '' }
+          { (doculect.notes || '').split('\n').map(x => (<p key={x}>{x}</p>)) }
+        </div>
       </div>
     </div>
   </div>);

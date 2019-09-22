@@ -35,7 +35,7 @@ function MarkersMap(props) {
   // React won't be happy if we pass in two markers that want the same position and popup text,
   // but that shouldn't happen anyway.
   const markers = props.data.map(m => <MarkerWithPopup position={m.position} popupText={m.popupText} key={m.position + m.popupText} />);
-  
+
   return (
     <LeafletMap center={center} zoom={zoom}>
       <TileLayer
