@@ -311,7 +311,7 @@ function PhonemeMatrix(props) {
         <tr key={`${props.inv_id}-${i}`}>
           {y.map((x, j) => 
             <td key={`${props.inv_id}-${i}-${j}}`}>
-              { x.join(' ') }
+              { x.map(s => s.segment).join(' ') }
             </td>)}
         </tr>)}
     </tbody></table>
@@ -325,7 +325,7 @@ function PhonemeArray(props) {
 
   return (<div>
     <h4 className='language-segments'>{ props.name } ({ size })</h4>
-    <span>{ contents.join(' ') }</span>
+    <span>{ contents.map(s => s.segment).join(' ') }</span>
   </div>)
 }
 
