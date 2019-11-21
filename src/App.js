@@ -268,7 +268,7 @@ function SearchResult(props) {
         <SourceCell language={props.language} /> 
       </td>
       <td>
-        {props.language.phonemes ? props.language.phonemes.join(' ') : ''}
+        {props.language.phonemes ? props.language.phonemes.map(x => x.segment).join(' ') : ''}
       </td>
     </tr>
   );
