@@ -15,7 +15,7 @@ function SourcePanel(props) {
   // If there are multiple authors, use the format Lastname(, Lastname...) & Lastname.		
   // If there's only one author, use Lastname, Firstname.		
   const authors_arr = doculect.source_author.split(';');		
-  const authors = (		
+  const authors = (
     (authors_arr.length > 1) ? 		
       (authors_arr.slice(0, authors_arr.length-1).map(x => x.split(',')[0]).join(', ') 		
         + ' & ' 		
@@ -26,6 +26,11 @@ function SourcePanel(props) {
   return (		
       <div>	
       	<h3> { doculect.language_name } ({ doculect.inventory_id }) </h3>	
+      	<p class='dialect_info'>
+      		{ doculect.dialect_name ? 
+      				'Dialect: ' + doculect.dialect_name
+      			: '' }
+      	</p>
         <p>		
           { source_string }		
         </p>		

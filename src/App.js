@@ -4,9 +4,9 @@ import 'react-tabs/style/react-tabs.css';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel, HelpText } from './phoible'
+import { SourceCell, SourcePanel, HelpText } from './iphon'
 
-const API_URL = window.location.protocol + '//localhost:1337/';
+const API_URL = window.location.protocol + '//localhost:1337/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
