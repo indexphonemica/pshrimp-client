@@ -4,9 +4,9 @@ import 'react-tabs/style/react-tabs.css';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel, HelpText } from './iphon'
+import { SourceCell, SourcePanel, HelpText } from './phoible'
 
-const API_URL = window.location.protocol + '//localhost:1337/api/';
+const API_URL = window.location.protocol + '//localhost:1337/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -138,6 +138,7 @@ class App extends Component {
     );
   }
 
+  // We have to do the if (res.error) thing.
   detail(id) {
     const queryURL = API_URL + 'language/' + id;
     setHash('detail', id);
@@ -149,11 +150,13 @@ class App extends Component {
     ).then(res => { // add the ID so we can use that to make keys
       res.id = id;
       return res
-    }).then(
-      res => this.setState({detailResults: res, detailError: false, tabIndex: 1})
-    ).catch(
-      err => this.setState({detailResults: false, detailError: err, tabIndex: 1})
-    );
+    }).then(res => {
+      if (res.error) {
+        this.setState({detailResults: false, detailError: res.error, tabIndex: 1})
+      } else {
+        this.setState({detailResults: res, detailError: false, tabIndex: 1})
+      }
+    }).catch(err => this.setState({detailResults: false, detailError: err, tabIndex: 1}))
   }
 
   render () {
@@ -205,14 +208,16 @@ class App extends Component {
               </TabPanel>
               <TabPanel>
                 {
-                  this.state.detailError ? <ErrorDialog err={this.state.detailError}/> 
-                    : <DetailPanel language={this.state.detailResults} /> 
+                  this.state.detailError ? 
+                       <ErrorDialog err={this.state.detailError}/> 
+                    : ( this.state.detailResults ?
+                        <DetailPanel language={this.state.detailResults} /> 
+                        : '' )
                 }
               </TabPanel>
               <TabPanel>
                 <MarkersMap data={processMapData(this.state.searchResults)} />
               </TabPanel>
-              <TabPanel />
             </Tabs>
           </section>
         </div>
@@ -237,7 +242,7 @@ function ErrorDialog(props) {
 
   // make sure there's only one Error: before the text
   if (!/[A-Za-z]*Error: /.test(errTxt)) errTxt = 'Error: ' + errTxt;
-  if (/Error: Error:/.test(errTxt)) errTxt = errTxt.slice(7);
+  if (/Error: (E|e)rror:/.test(errTxt)) errTxt = 'E' + errTxt.slice(8); // replace 'error' with 'Error' - TODO should just make the backend behave
   return (
     <div className='error'>
       {errTxt}
