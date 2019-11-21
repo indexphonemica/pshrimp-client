@@ -269,7 +269,7 @@ function SearchResult(props) {
           {props.language.language_name}
         </button>
       </td>
-      <td>
+      <td className='source-cell'>
         <SourceCell language={props.language} /> 
       </td>
       <td>

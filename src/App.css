@@ -83,6 +83,12 @@ If anyone has a better way to do this, let me know.
     padding-right: 20px;
 }
 
+/* Don't wrap glottocodes, yecch */
+.source-cell {
+  white-space: nowrap;
+}
+
+
 
 .leaflet-container {
   height: 400px;
