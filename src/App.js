@@ -268,7 +268,7 @@ function SearchResult(props) {
         <SourceCell language={props.language} /> 
       </td>
       <td>
-        {props.language.phonemes ? props.language.phonemes.map(x => x.segment).join(' ') : ''}
+        {props.language.phonemes ? <Segments segments={props.language.phonemes}/> : ''}
       </td>
     </tr>
   );
@@ -311,7 +311,7 @@ function PhonemeMatrix(props) {
         <tr key={`${props.inv_id}-${i}`}>
           {y.map((x, j) => 
             <td key={`${props.inv_id}-${i}-${j}}`}>
-              { x.map(s => s.segment).join(' ') }
+              <Segments segments={x} />
             </td>)}
         </tr>)}
     </tbody></table>
@@ -325,8 +325,31 @@ function PhonemeArray(props) {
 
   return (<div>
     <h4 className='language-segments'>{ props.name } ({ size })</h4>
-    <span>{ contents.map(s => s.segment).join(' ') }</span>
+    <span><Segments segments={contents} /></span>
   </div>)
+}
+
+function Segments(props) {
+  return props.segments.map(x => Segment(x));
+}
+
+function Segment(props) {
+  // no good way to escape these
+  var openBrace  = '';
+  var closeBrace = '';
+
+  if (props.marginal) {
+    openBrace  += '(';
+    closeBrace += ')';
+  }
+  if (props.loan) {
+    openBrace  += '{';
+    closeBrace += '}';
+  }
+
+  return (
+    <span className='segment'>{ openBrace }{ props.segment }{ closeBrace }</span>
+  )
 }
 
 export default App;

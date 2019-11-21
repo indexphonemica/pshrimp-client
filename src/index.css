@@ -22,3 +22,7 @@ If anyone has a better way to do this, let me know.
     max-height: calc(100vh - 38px); /* 38px for navs, 20px for body margin-top */
     overflow: auto;
 }
+
+.segment:not(:last-child) {
+	margin-right: 3px;
+}
