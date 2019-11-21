@@ -21,16 +21,14 @@ function SourcePanel(props) {
         + ' & ' 		
         + authors_arr[authors_arr.length-1].split(',')[0])		
       : authors_arr[0])		
+
   const source_string = `${doculect.source_title}. ${authors}. ${doculect.source_year}`		
   const source_bibkey_url = `https://glottolog.org/resource/reference/id/${ doculect.source_bibkey }`		
+
   return (		
       <div>	
       	<h3> { doculect.language_name } ({ doculect.inventory_id }) </h3>	
-      	<p class='dialect_info'>
-      		{ doculect.dialect_name ? 
-      				'Dialect: ' + doculect.dialect_name
-      			: '' }
-      	</p>
+      	<DialectInfoBox doculect={doculect}/>
         <p>		
           { source_string }		
         </p>		
@@ -44,6 +42,17 @@ function SourcePanel(props) {
         </p>		
       </div>		
   )		
+}
+
+function DialectInfoBox(props) {
+	const dialect_link = `https://glottolog.org/resource/languoid/id/${ props.doculect.dialect }`
+	if (props.doculect.dialect) {
+		return (<p className='dialect-info'>Dialect: <a href={dialect_link}>{ props.doculect.dialect_name }</a></p>)
+	} else if (props.doculect.dialect_name) {
+		return (<p className='dialect-info'>Dialect: { props.doculect.dialect_name }</p>)
+	} else {
+		return (<span/>)
+	}
 }
 
 function HelpText(props) {
