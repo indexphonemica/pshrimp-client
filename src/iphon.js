@@ -74,15 +74,17 @@ function HelpText(props) {
 
                     <p>To search for multiple feature values on the same phoneme, separate the feature components with a semicolon. For example, <code>any +syllabic;+consonantal</code> will return a list of doculects with syllabic consonants.</p>
 
+                    <p>To ignore phonemes marked as marginal, use <code>-m</code>. To ignore phonemes marked as only occurring in loans, use <code>-l</code>. For example, Northwest Mekeo (meke1243-1) only contains coronal consonants in recent English loanwords; <code>no +coronal -l</code> will return this doculect, but <code>no +coronal</code> will not.</p>
+
+                    <p>(Some phonemes may be marked as both marginal and loan phonemes; this means that they are stated to be marginal outside loanwords, or to mostly occur in loans. Both <code>-m</code> and <code>-l</code> will cause these phonemes to be ignored.)</p>
+
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
                     <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>.</p>
 
-
-
                     <h3>Examples</h3>
 
-                    <p className='example-text'>Find doculects with only two coronal consonants:</p>
+                    <p className='example-text'>Find doculects with only two coronals:</p>
                     <code className='example'>2 +coronal</code>
                     <p className='example-text'>Find doculects with three or fewer vowels:</p>
                     <code className='example'>&lt;4 +syllabic</code>

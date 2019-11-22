@@ -45,6 +45,8 @@ function HelpText(props) {
 
                     <p>To search for multiple feature values on the same phoneme, separate the feature components with a semicolon. For example, <code>any +syllabic;+consonantal</code> will return a list of doculects with syllabic consonants.</p>
 
+                    <p>To ignore phonemes marked as marginal, use <code>-m</code> immediately following the search term in question. For example, <code>no /p/ -m /p/ and</code> will return all and only the doculects in which /p/ is marked as marginal.</p>
+
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
                     <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>.</p>
@@ -53,7 +55,7 @@ function HelpText(props) {
 
                     <h3>Examples</h3>
 
-                    <p className='example-text'>Find doculects with only two coronal consonants:</p>
+                    <p className='example-text'>Find doculects with only two coronals:</p>
                     <code className='example'>2 +coronal</code>
                     <p className='example-text'>Find doculects with three or fewer vowels:</p>
                     <code className='example'>&lt;4 +syllabic</code>
