@@ -49,7 +49,7 @@ function HelpText(props) {
 
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>.</p>
+                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
 
 
 
@@ -107,6 +107,20 @@ function HelpText(props) {
                         </li><li>implosive
                         </li><li>click</li>
                     </ul></code>
+
+                    <h3>List of properties</h3>
+                    <ul>
+                      <li><code>id</code>
+                      </li><li><code>source</code>
+                      </li><li><code>glottocode</code>
+                      </li><li><code>iso6393</code>
+                      </li><li><code>language_name</code>
+                      </li><li><code>family</code>
+                      </li><li><code>genus</code>
+                      </li><li><code>macroarea</code> (eurasia, northamerica, southamerica, africa, australia, pacific)
+                      </li><li><code>country_id</code>
+                      </li><li><code>country</code></li>
+                    </ul>
                 </div>)
 }
 

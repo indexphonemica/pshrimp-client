@@ -80,7 +80,7 @@ function HelpText(props) {
 
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>.</p>
+                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
 
                     <h3>Examples</h3>
 
@@ -96,8 +96,8 @@ function HelpText(props) {
                     <code className='example'>/d/ no /m/ and</code>
 
                     <h3>List of features</h3>
-                    <p>Index Phonemica's feature system is currently derived from <a href="https://phoible.org/">PHOIBLE</a>'s, but the names of the features have been converted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p><code>
-                    <ul>
+                    <p>Index Phonemica's feature system is currently derived from <a href="https://phoible.org/">PHOIBLE</a>'s, but the names of the features have been converted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p>
+                    <code><ul>
                         <li>tone
                         </li><li>stress
                         </li><li>syllabic
@@ -136,6 +136,25 @@ function HelpText(props) {
                         </li><li>implosive
                         </li><li>click</li>
                     </ul></code>
+
+                    <h3>List of properties</h3>
+                    <ul>		
+                      <li><code>inventory_id</code>
+                      </li><li><code>language_name</code> (as given in the source)
+                      </li><li><code>glottocode</code>
+                      </li><li><code>dialect</code>
+                      </li><li><code>dialect_name</code>
+                      </li><li><code>source_bibkey</code>
+                      </li><li><code>source_url</code>
+                      </li><li><code>source_doi</code>
+                      </li><li><code>name</code> (as given by Glottolog)
+                      </li><li><code>iso6393</code>
+                      </li><li><code>family</code>
+                      </li><li><code>genus</code>
+                      </li><li><code>macroarea</code> (eurasia, north_america, south_america, africa, australia, papunesia)
+                      </li><li><code>country_id</code> 
+                      </li><li><code>country</code></li>
+                    </ul>
                 </div>)
 }
 
