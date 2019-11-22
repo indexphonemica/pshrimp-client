@@ -353,7 +353,7 @@ function Segment(props) {
   }
 
   return (
-    <span className='segment'>{ openBrace }{ props.segment }{ closeBrace }</span>
+    <span className='segment' key={ props.segment }>{ openBrace }{ props.segment }{ closeBrace }</span>
   )
 }
 
