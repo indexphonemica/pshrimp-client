@@ -29,7 +29,7 @@ function SourcePanel(props) {
 function HelpText(props) {
   return (<div id='help'><h3>About</h3>
 
-                    <p>This is a search tool for the Index Phonemica database.</p>
+                    <p>This is an unofficial search tool for <a href="https://phoible.org/">PHOIBLE</a>.</p>
 
                     <h3>Searching</h3>
 
@@ -37,7 +37,7 @@ function HelpText(props) {
 
                     <p>A <em>phoneme term</em> consists of a phoneme enclosed in forward slashes, optionally preceded by "no". This will find all doculects that have (or don't have, if there's a preceding "no") the given phoneme.</p>
 
-                    <p>For example, <code>/t̪ʙ/</code> will return all doculects that contain the phoneme represented in Index Phonemica by the text string <code>t̪ʙ</code>, and <code>no /m/</code> will return all doculects that do not contain the phoneme represented in Index Phonemica by the text string <code>/m/</code>.</p>
+                    <p>For example, <code>/t̪ʙ/</code> will return all doculects that contain the phoneme represented in PHOIBLE by the text string <code>t̪ʙ</code>, and <code>no /m/</code> will return all doculects that do not contain the phoneme represented in PHOIBLE by the text string <code>/m/</code>.</p>
 
                     <p>A <em>feature term</em> consists of a number (optionally preceded by a <code>&lt;</code> or <code>&gt;</code> sign), a space, and a string of pluses and minuses followed (with no intervening space) by the name of the feature to search. For example, <code>2 +coronal</code> will return all doculects with exactly two [+coronal] segments, and <code>&gt;30 +syllabic</code> will return all doculects with more than thirty vowels.</p>
 
@@ -49,9 +49,7 @@ function HelpText(props) {
 
                     <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
-
-
+                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive. For example, <code>country:australia</code> will return all doculects of languages that PHOIBLE lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
 
                     <h3>Examples</h3>
 
@@ -67,8 +65,8 @@ function HelpText(props) {
                     <code className='example'>/d/ no /m/ and</code>
 
                     <h3>List of features</h3>
-                    <p>Index Phonemica's feature system is currently derived from <a href="https://phoible.org/">PHOIBLE</a>'s, but the names of the features have been converted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p><code>
-                    <ul>
+                    <p>The names of PHOIBLE's features have been cconverted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p>
+                    <code><ul>
                         <li>tone
                         </li><li>stress
                         </li><li>syllabic
@@ -117,7 +115,6 @@ function HelpText(props) {
                       </li><li><code>language_name</code>
                       </li><li><code>family</code>
                       </li><li><code>genus</code>
-                      </li><li><code>macroarea</code> (eurasia, northamerica, southamerica, africa, australia, pacific)
                       </li><li><code>country_id</code>
                       </li><li><code>country</code></li>
                     </ul>
