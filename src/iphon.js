@@ -27,19 +27,21 @@ function SourcePanel(props) {
 
   return (		
       <div>	
-      	<h3> { doculect.language_name } ({ doculect.inventory_id }) </h3>	
+      	<h3> { doculect.language_name } <a href="https://indexphonemica.net/doculects/{doculect.inventory_id}">({ doculect.inventory_id })</a></h3>	
       	<DialectInfoBox doculect={doculect}/>
-        <p>		
-          { source_string }		
-        </p>		
-        <p>		
-          <a href={source_bibkey_url}>		
-            {doculect.source_bibkey}		
-          </a>		
-          <a href={doculect.source_url}>		
-            { doculect.source_url ? '🔗' : '' }		
-          </a>		
-        </p>		
+        <div className='source-box'>
+          <p>		
+            { source_string }		
+          </p>		
+          <p>		
+            <a href={source_bibkey_url}>		
+              {doculect.source_bibkey}		
+            </a>		
+            <a href={doculect.source_url}>		
+              { doculect.source_url ? '🔗' : '' }		
+            </a>		
+          </p>	
+        </div>	
       </div>		
   )		
 }
