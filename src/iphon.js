@@ -60,7 +60,7 @@ function DialectInfoBox(props) {
 function HelpText(props) {
 	return (<div id='help'><h3>About</h3>
 
-                    <p>This is a search tool for the Index Phonemica database.</p>
+                    <p>This is a search tool for the <a href="http://indexphonemica.net">Index Phonemica</a> database.</p>
 
                     <h3>Searching</h3>
 
