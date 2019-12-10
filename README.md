@@ -1,3 +1,2 @@
-See also: [the backend](https://github.com/defseg/pshrimp-server).
+This is the frontend for Pshrimp, a search tool for [Index Phonemica](http://indexphonemica.net). See also: [the backend](https://github.com/indexphonemica/pshrimp-server).
 
-For now, use [Psmith](https://github.com/defseg/psmith).
