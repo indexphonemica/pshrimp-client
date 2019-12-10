@@ -27,7 +27,7 @@ function SourcePanel(props) {
 
   return (		
       <div>	
-      	<h3> { doculect.language_name } <a href="https://indexphonemica.net/doculects/{doculect.inventory_id}">({ doculect.inventory_id })</a></h3>	
+      	<h3> { doculect.language_name } <a href={"https://indexphonemica.net/doculects/" + doculect.inventory_id}>({ doculect.inventory_id })</a></h3>	
       	<DialectInfoBox doculect={doculect}/>
         <div className='source-box'>
           <p>		
@@ -44,6 +44,24 @@ function SourcePanel(props) {
         </div>	
       </div>		
   )		
+}
+
+function AllophonicRulePanel(props) {
+  const rules = props.rules;
+
+  return (<div><h4>Allophonic rules</h4>
+    {rules.map(rule => <AllophonicRule rule={rule}/>)}
+  </div>)
+}
+function AllophonicRule(props) {
+  const rule = props.rule;
+
+  const phonemes    = rule.phonemes.join('·');
+  const arrow       = rule.variation ? '>~' : '>';
+  const realization = rule.realization;
+  const environment = rule.environment;
+
+  return (<div>{phonemes} {arrow} {realization} / {environment}</div>);
 }
 
 function DialectInfoBox(props) {
@@ -160,4 +178,4 @@ function HelpText(props) {
                 </div>)
 }
 
-export { SourceCell, SourcePanel, HelpText }
+export { SourceCell, SourcePanel, AllophonicRulePanel, HelpText }

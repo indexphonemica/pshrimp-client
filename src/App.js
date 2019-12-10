@@ -4,9 +4,9 @@ import 'react-tabs/style/react-tabs.css';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel, AllophonicRulePanel, HelpText } from './phoible'
+import { SourceCell, SourcePanel, AllophonicRulePanel, HelpText } from './iphon'
 
-const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
+const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
