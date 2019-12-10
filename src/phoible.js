@@ -26,6 +26,38 @@ function SourcePanel(props) {
   );
 }
 
+function AllophonicRulePanel(props) {
+  const rules = props.rules;
+
+  if (rules.length === 0) return (<div></div>);
+
+  return (<div>
+      <h4>Allophones</h4>
+      <table key={JSON.stringify(rules)}>
+      <thead>
+        <tr>
+          <th>Phoneme</th>
+          <th>Allophones</th>
+        </tr>
+      </thead>
+      <tbody>
+        { rules.map(rule => <AllophonicRule key={JSON.stringify(rule)} rule={rule} />) }
+      </tbody>
+    </table>
+  </div>)
+}
+function AllophonicRule(props) {
+  const phoneme = props.rule[0];
+  const allophones = props.rule[1];
+
+  return (
+    <tr>
+      <td>{ phoneme }</td>
+      <td>{ allophones.join(', ') }</td>
+    </tr>
+  )
+}
+
 function HelpText(props) {
   return (<div id='help'><h3>About</h3>
 
@@ -121,4 +153,4 @@ function HelpText(props) {
                 </div>)
 }
 
-export { SourceCell, SourcePanel, HelpText }
+export { SourceCell, SourcePanel, AllophonicRulePanel, HelpText }

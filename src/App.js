@@ -4,9 +4,9 @@ import 'react-tabs/style/react-tabs.css';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel, HelpText } from './iphon'
+import { SourceCell, SourcePanel, AllophonicRulePanel, HelpText } from './phoible'
 
-const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
+const API_URL = window.location.protocol + '//pshrimp.herokuapp.com/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
@@ -298,6 +298,7 @@ function DetailPanel(props) {
           { doculect.notes ? <h4>Notes</h4> : '' }
           { (doculect.notes || '').split('\n').map(x => (<p key={x}>{x}</p>)) }
         </div>
+        <AllophonicRulePanel rules={ doculect.allophonic_rules } />
       </div>
     </div>
   </div>);
