@@ -274,6 +274,7 @@ function SearchResult(props) {
       </td>
       <td>
         {props.language.phonemes ? <Segments segments={props.language.phonemes}/> : ''}
+        {props.language.allophones ? <AllophonicRules allophonic_rules={props.language.allophones}/> : ''}
       </td>
     </tr>
   );
@@ -355,6 +356,20 @@ function Segment(props) {
 
   return (
     <span className='segment' key={ props.segment }>{ openBrace }{ props.segment }{ closeBrace }</span>
+  )
+}
+
+function AllophonicRules(props) {
+  return props.allophonic_rules.map(x => AllophonicRule(x));
+}
+
+function AllophonicRule(props) {
+  var arrow = '>';
+  if (props.variation) arrow += '~';
+  return (
+    <div className='allophonic-rule' key={ props.allophone_id }>
+      {props.phoneme} {arrow} {props.realization} / {props.environment}
+    </div>
   )
 }
 

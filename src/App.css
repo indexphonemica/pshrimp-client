@@ -88,7 +88,9 @@ If anyone has a better way to do this, let me know.
   white-space: nowrap;
 }
 
-
+td {
+  vertical-align: top;
+}
 
 .leaflet-container {
   height: 400px;
