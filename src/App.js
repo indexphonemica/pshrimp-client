@@ -370,7 +370,7 @@ function AllophonicRule(props) {
   if (props.variation) arrow += '~';
   return (
     <div className='allophonic-rule' key={ props.allophone_id }>
-      {props.phoneme} {arrow} {props.realization} / {props.environment}
+      {props.phoneme} {arrow} {props.realization} {props.environment ? '/' : ''} {props.environment}
     </div>
   )
 }
