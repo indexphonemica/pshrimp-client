@@ -347,11 +347,13 @@ function Segment(props) {
 
   if (props.marginal) {
     openBrace  += '(';
-    closeBrace += ')';
   }
   if (props.loan) {
-    openBrace  += '{';
+    openBrace  += '{'; 
     closeBrace += '}';
+  }
+  if (props.marginal) {
+    closeBrace += ')';
   }
 
   return (
