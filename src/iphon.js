@@ -27,7 +27,7 @@ function SourcePanel(props) {
 
   return (		
       <div>	
-      	<h3> { doculect.language_name } <a href={"https://indexphonemica.net/doculects/" + doculect.inventory_id}>({ doculect.inventory_id })</a></h3>	
+      	<h3> { doculect.language_name } <a href={"http://indexphonemica.net/doculects/" + doculect.inventory_id}>({ doculect.inventory_id })</a></h3>	
       	<DialectInfoBox doculect={doculect}/>
         <div className='source-box'>
           <p>		
