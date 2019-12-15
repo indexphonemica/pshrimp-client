@@ -299,7 +299,7 @@ function DetailPanel(props) {
           { doculect.notes ? <h4>Notes</h4> : '' }
           { (doculect.notes || '').split('\n').map(x => (<p key={x}>{x}</p>)) }
         </div>
-        <AllophonicRulePanel rules={ doculect.allophonic_rules } />
+        { doculect.allophonic_rules.length > 0 ? <AllophonicRulePanel rules={ doculect.allophonic_rules } /> : '' }
       </div>
     </div>
   </div>);
