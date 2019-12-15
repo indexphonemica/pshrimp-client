@@ -2,9 +2,9 @@ import React from 'react';
 
 function SourceCell(props) {
 	return (
-		<button className='link-button' onClick={() => props.detailFn(props.language.inventory_id)}>
+		<a href={"http://indexphonemica.net/doculects/" + props.language.inventory_id} target="_blank">
 			{props.language.inventory_id}		
-		</button>
+		</a>
 	);
 }
 
