@@ -2,7 +2,7 @@ import React from 'react';
 
 function SourceCell(props) {
   return (
-    <a href={"http://phoible.org/inventories/view" + props.language.inventory_id}>
+    <a href={"http://phoible.org/inventories/view/" + props.language.inventory_id}>
       {props.language.source.toUpperCase()}
     </a>
   );
