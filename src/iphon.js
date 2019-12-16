@@ -13,16 +13,22 @@ function SourcePanel(props) {
   const doculect = props.doculect;		
   // Format author list		
   // If there are multiple authors, use the format Lastname(, Lastname...) & Lastname.		
-  // If there's only one author, use Lastname, Firstname.		
-  const authors_arr = doculect.source_author.split(';');		
-  const authors = (
+  // If there's only one author, use Lastname, Firstname.
+  const authors_arr = doculect.source_author.split(';');
+  var authors = ( // yeesh. TODO clean this up?
     (authors_arr.length > 1) ? 		
       (authors_arr.slice(0, authors_arr.length-1).map(x => x.split(',')[0]).join(', ') 		
         + ' & ' 		
         + authors_arr[authors_arr.length-1].split(',')[0])		
-      : authors_arr[0])		
+      : authors_arr[0])
+  // special-case unknowns for clarity
+  if (authors === 'Unknown') authors = 'Unknown author';
+  if (doculect.source_year === null) doculect.source_year = 'Unknown year';
 
-  const source_string = `${doculect.source_title}. ${authors}. ${doculect.source_year}`		
+  // another thing: remove final periods. "Lastname, Firstname M.." is a little ugly.
+  if (authors[authors.length-1] === '.') authors = authors.slice(0, authors.length-1);
+
+  const source_string = `${doculect.source_title}. ${authors}. ${doculect.source_year}.`
   const source_bibkey_url = `https://glottolog.org/resource/reference/id/${ doculect.source_bibkey }`		
 
   return (		
