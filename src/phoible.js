@@ -65,7 +65,7 @@ function HelpText(props) {
 
                     <h3>Searching</h3>
 
-                    <p>A search query is minimally composed of a <em>search term</em>. There are two types of search term.</p>
+                    <p>A search query is minimally composed of a <em>search term</em>. There are four types of search term.</p>
 
                     <p>A <em>phoneme term</em> consists of a phoneme enclosed in forward slashes, optionally preceded by "no". This will find all doculects that have (or don't have, if there's a preceding "no") the given phoneme.</p>
 
@@ -79,9 +79,11 @@ function HelpText(props) {
 
                     <p>To ignore phonemes marked as marginal, use <code>-m</code> immediately following the search term in question. For example, <code>no /p/ -m /p/ and</code> will return all and only the doculects in which /p/ is marked as marginal.</p>
 
-                    <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
+                    <p>A <em>property term</em> searches for languages with specific properties, and are of the form <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive. For example, <code>country:australia</code> will return all doculects of languages that PHOIBLE lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive. For example, <code>country:australia</code> will return all doculects of languages that PHOIBLE lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
+                    <p>An <em>allophone term</em> searches allophonic rules. Allophone terms consist of a phoneme or feature bundle followed by a <code>&gt;</code> and a phoneme. (Both phonemes must be enclosed in slashes.) For example, <code>/t/ > /ɾ/</code> finds doculects in which /ɾ/ is listed as an allophone of /t/, and <code>+coronal > /ɾ/</code> finds doculects in which /ɾ/ is listed as an allophone of any coronal segment. (Feature bundles can only appear in the left-hand side of an allophone term.)</p>
+
+                    <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
                     <h3>Examples</h3>
 

@@ -88,7 +88,7 @@ function HelpText(props) {
 
                     <h3>Searching</h3>
 
-                    <p>A search query is minimally composed of a <em>search term</em>. There are two types of search term.</p>
+                    <p>A search query is minimally composed of a <em>search term</em>. There are four types of search term.</p>
 
                     <p>A <em>phoneme term</em> consists of a phoneme enclosed in forward slashes, optionally preceded by "no". This will find all doculects that have (or don't have, if there's a preceding "no") the given phoneme.</p>
 
@@ -104,9 +104,11 @@ function HelpText(props) {
 
                     <p>(Some phonemes may be marked as both marginal and loan phonemes; this means that they are stated to be marginal outside loanwords, or to mostly occur in loans. Both <code>-m</code> and <code>-l</code> will cause these phonemes to be ignored.)</p>
 
-                    <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
+                    <p>A <em>property term</em> searches for languages with specific properties. Property terms are of the form <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
 
-                    <p>To limit the search to languages with specific properties, use <code>field:value</code>. To limit the search to languages without specific properties, use <code>!field:value</code>. Values are case-insensitive, and properties of languages are taken from <a href="https://glottolog.org">Glottolog</a>. For example, <code>country:australia</code> will return all doculects of languages that Glottolog lists as spoken in Australia. Spaces in the value must be replaced with underscores, as in <code>country:united_states</code>. See below for a full list of properties.</p>
+                    <p>An <em>allophone term</em> searches allophonic rules. These use phonemes or feature bundles separated by <code>&gt;</code>. For example, <code>+coronal > -coronal</code> searches for doculects with allophonic rules that transform a coronal phoneme into a non-coronal realization, and <code>/t/ > +tap</code> searches for doculects with allophonic rules transforming the phoneme <code>/t/</code> into a tap.</p>
+
+                    <p>Search terms may be joined by the logical operators <code>and</code> and <code>or</code>. These are postfix.</p>
 
                     <h3>Examples</h3>
 
@@ -116,10 +118,12 @@ function HelpText(props) {
                     <code className='example'>&lt;4 +syllabic</code>
                     <p className='example-text'>Find doculects with three or fewer vowels or the phoneme /d/:</p>
                     <code className='example'>&lt;4 +syllabic /d/ or</code>
-                    <p className='example-text'>Find doculects with no rounded segments:</p>
-                    <code className='example'>no +round</code>
+                    <p className='example-text'>Find doculects with no dorsal consonants (excluding semivowels):</p>
+                    <code className='example'>no +dorsal;+consonantal</code>
                     <p className='example-text'>Find doculects with /d/ and no /m/:</p>
                     <code className='example'>/d/ no /m/ and</code>
+                    <p className='example-text'>Find doculects in Papua New Guinea with t-flapping:</p>
+                    <code className='example'>country:papua_new_guinea /t/ > +tap and</code>
 
                     <h3>List of features</h3>
                     <p>Index Phonemica's feature system is currently derived from <a href="https://phoible.org/">PHOIBLE</a>'s, but the names of the features have been converted from camelCase to snake_case, and 'raisedLarynxEjective' and 'loweredLarynxImplosive' have been renamed to <code>ejective</code> and <code>implosive</code>.</p>
