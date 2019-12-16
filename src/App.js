@@ -356,8 +356,15 @@ function Segment(props) {
     closeBrace += ')';
   }
 
+  const seg = openBrace + props.segment + closeBrace;
+
+  // Adding a space to the Segment el looks like it produces a trailing space after the end of Segments
+  // if you highlight it in a certain way, but that seems to be a browser artifact... 
+  // I rewrote Segments to tell Segment whether it's the last one in the array and leave off the space 
+  // if so, and it did the same thing. And I notice now that this happens elsewhere. So this is fine.
+
   return (
-    <span className='segment' key={ props.segment }>{ openBrace }{ props.segment }{ closeBrace }</span>
+    <span key={ seg }>{ seg } </span>
   )
 }
 
