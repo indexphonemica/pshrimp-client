@@ -2,7 +2,7 @@ import React from 'react';
 
 function SourceCell(props) {
 	return (
-		<a href={"http://indexphonemica.net/doculects/" + props.language.inventory_id} target="_blank">
+		<a href={"http://indexphonemica.net/doculects/" + props.language.inventory_id} target="_blank" rel="noopener noreferrer">
 			{props.language.inventory_id}		
 		</a>
 	);
