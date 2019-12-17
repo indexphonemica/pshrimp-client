@@ -56,18 +56,22 @@ function AllophonicRulePanel(props) {
   const rules = props.rules;
 
   return (<div><h4>Allophonic rules</h4>
-    {rules.map(rule => <AllophonicRule rule={rule}/>)}
+    {rules.map(rule => <AllophonicRule key={ruleToString(rule)} rule={rule}/>)}
   </div>)
 }
 function AllophonicRule(props) {
   const rule = props.rule;
+  return (<div>
+    {ruleToString(rule)}
+  </div>);
+}
 
+function ruleToString(rule) {
   const phonemes    = rule.phonemes.join('·');
   const arrow       = rule.variation ? '>~' : '>';
   const realization = rule.realization;
   const environment = rule.environment;
-
-  return (<div>{phonemes} {arrow} {realization} / {environment}</div>);
+  return `${phonemes} ${arrow} ${realization} / ${environment}`;
 }
 
 function DialectInfoBox(props) {
