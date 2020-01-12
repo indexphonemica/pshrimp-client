@@ -1,15 +1,15 @@
 {
-  "main.css": "/pshrimp-client/static/css/main.3c16dbeb.chunk.css",
-  "main.js": "/pshrimp-client/static/js/main.99eac957.chunk.js",
-  "main.js.map": "/pshrimp-client/static/js/main.99eac957.chunk.js.map",
+  "main.css": "/pshrimp-client/static/css/main.10f16da6.chunk.css",
+  "main.js": "/pshrimp-client/static/js/main.db4ff56f.chunk.js",
+  "main.js.map": "/pshrimp-client/static/js/main.db4ff56f.chunk.js.map",
   "runtime~main.js": "/pshrimp-client/static/js/runtime~main.85d2c895.js",
   "runtime~main.js.map": "/pshrimp-client/static/js/runtime~main.85d2c895.js.map",
   "static/css/2.ec4a6040.chunk.css": "/pshrimp-client/static/css/2.ec4a6040.chunk.css",
   "static/js/2.e425853f.chunk.js": "/pshrimp-client/static/js/2.e425853f.chunk.js",
   "static/js/2.e425853f.chunk.js.map": "/pshrimp-client/static/js/2.e425853f.chunk.js.map",
   "index.html": "/pshrimp-client/index.html",
-  "precache-manifest.48a79179cc719c08620fb976e2f3e153.js": "/pshrimp-client/precache-manifest.48a79179cc719c08620fb976e2f3e153.js",
+  "precache-manifest.dbe9ed1d10b7dbbd88127fb2a9a54e12.js": "/pshrimp-client/precache-manifest.dbe9ed1d10b7dbbd88127fb2a9a54e12.js",
   "service-worker.js": "/pshrimp-client/service-worker.js",
   "static/css/2.ec4a6040.chunk.css.map": "/pshrimp-client/static/css/2.ec4a6040.chunk.css.map",
-  "static/css/main.3c16dbeb.chunk.css.map": "/pshrimp-client/static/css/main.3c16dbeb.chunk.css.map"
+  "static/css/main.10f16da6.chunk.css.map": "/pshrimp-client/static/css/main.10f16da6.chunk.css.map"
 }
