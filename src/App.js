@@ -4,7 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import { MarkersMap } from './MarkersMap';
 import './App.css';
 
-import { SourceCell, SourcePanel, AllophonicRulePanel, HelpText } from './iphon'
+import { SourceCell, SourcePanel, SourceTableHead, AllophonicRulePanel, HelpText } from './iphon'
 
 const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
 
@@ -254,6 +254,7 @@ function SearchResults(props) {
   if (props.value === false) return (<div>No results</div>);
   return (
     <table>
+      <SourceTableHead />
       <tbody>
         {props.value.map(language => <SearchResult key={language.inventory_id} language={language} detailFn={props.detailFn} />)}
       </tbody>

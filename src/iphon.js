@@ -52,6 +52,14 @@ function SourcePanel(props) {
   )		
 }
 
+function SourceTableHead(props) {
+  return (<thead>
+      <th>Name</th>
+      <th>Glottocode</th>
+      <th>Results</th>
+    </thead>)
+}
+
 function AllophonicRulePanel(props) {
   const rules = props.rules;
 
@@ -192,4 +200,4 @@ function HelpText(props) {
                 </div>)
 }
 
-export { SourceCell, SourcePanel, AllophonicRulePanel, HelpText }
+export { SourceCell, SourcePanel, SourceTableHead, AllophonicRulePanel, HelpText }

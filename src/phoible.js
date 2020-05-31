@@ -8,6 +8,18 @@ function SourceCell(props) {
   );
 }
 
+function SourceTableHead(props) {
+  return (
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Source</th>
+        <th>Results</th>
+      </tr>
+    </thead>
+  )
+}
+
 function SourcePanel(props) {
   const doculect = props.doculect;
   return (
@@ -155,4 +167,4 @@ function HelpText(props) {
                 </div>)
 }
 
-export { SourceCell, SourcePanel, AllophonicRulePanel, HelpText }
+export { SourceCell, SourcePanel, SourceTableHead, AllophonicRulePanel, HelpText }
