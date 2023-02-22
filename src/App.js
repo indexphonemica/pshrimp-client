@@ -6,7 +6,7 @@ import './App.css';
 
 import { SourceCell, SourcePanel, SourceTableHead, AllophonicRulePanel, HelpText } from './iphon'
 
-const API_URL = window.location.protocol + '//indexphonemica.herokuapp.com/api/';
+const API_URL = window.location.protocol + '//indexphonemica.net/api/';
 
 function encode(thing) {
   return encodeURIComponent(thing.toString().replace(/\\/g,'\\\\').replace(/&/g,'\\+').replace(/=/g,'\\e'));
