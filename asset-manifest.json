@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/pshrimp-client/static/css/main.4f0d47c4.chunk.css",
-    "main.js": "/pshrimp-client/static/js/main.667bb2e2.chunk.js",
-    "main.js.map": "/pshrimp-client/static/js/main.667bb2e2.chunk.js.map",
-    "runtime-main.js": "/pshrimp-client/static/js/runtime-main.bb5d104f.js",
-    "runtime-main.js.map": "/pshrimp-client/static/js/runtime-main.bb5d104f.js.map",
-    "static/css/2.eea8b61e.chunk.css": "/pshrimp-client/static/css/2.eea8b61e.chunk.css",
-    "static/js/2.284886dc.chunk.js": "/pshrimp-client/static/js/2.284886dc.chunk.js",
-    "static/js/2.284886dc.chunk.js.map": "/pshrimp-client/static/js/2.284886dc.chunk.js.map",
+    "main.js": "/pshrimp-client/static/js/main.d4c9182b.chunk.js",
+    "main.js.map": "/pshrimp-client/static/js/main.d4c9182b.chunk.js.map",
+    "runtime-main.js": "/pshrimp-client/static/js/runtime-main.ca11a056.js",
+    "runtime-main.js.map": "/pshrimp-client/static/js/runtime-main.ca11a056.js.map",
+    "static/css/2.93f7ecf9.chunk.css": "/pshrimp-client/static/css/2.93f7ecf9.chunk.css",
+    "static/js/2.0bb3c010.chunk.js": "/pshrimp-client/static/js/2.0bb3c010.chunk.js",
+    "static/js/2.0bb3c010.chunk.js.map": "/pshrimp-client/static/js/2.0bb3c010.chunk.js.map",
     "index.html": "/pshrimp-client/index.html",
-    "precache-manifest.2eb10487aeef713982f413978a152e2a.js": "/pshrimp-client/precache-manifest.2eb10487aeef713982f413978a152e2a.js",
+    "precache-manifest.a56f0c95f1076f9de0e5ba923c00f4f8.js": "/pshrimp-client/precache-manifest.a56f0c95f1076f9de0e5ba923c00f4f8.js",
     "service-worker.js": "/pshrimp-client/service-worker.js",
-    "static/css/2.eea8b61e.chunk.css.map": "/pshrimp-client/static/css/2.eea8b61e.chunk.css.map",
+    "static/css/2.93f7ecf9.chunk.css.map": "/pshrimp-client/static/css/2.93f7ecf9.chunk.css.map",
     "static/css/main.4f0d47c4.chunk.css.map": "/pshrimp-client/static/css/main.4f0d47c4.chunk.css.map",
-    "static/js/2.284886dc.chunk.js.LICENSE": "/pshrimp-client/static/js/2.284886dc.chunk.js.LICENSE"
+    "static/js/2.0bb3c010.chunk.js.LICENSE.txt": "/pshrimp-client/static/js/2.0bb3c010.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bb5d104f.js",
-    "static/css/2.eea8b61e.chunk.css",
-    "static/js/2.284886dc.chunk.js",
+    "static/js/runtime-main.ca11a056.js",
+    "static/css/2.93f7ecf9.chunk.css",
+    "static/js/2.0bb3c010.chunk.js",
     "static/css/main.4f0d47c4.chunk.css",
-    "static/js/main.667bb2e2.chunk.js"
+    "static/js/main.d4c9182b.chunk.js"
   ]
 }
